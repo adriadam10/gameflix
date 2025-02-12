@@ -1,1 +1,25 @@
 nes;No-Intro/Nintendo - Nintendo Entertainment System (Headered);Nintendo - Nintendo Entertainment System;<p>Nintendo NES NoIntro;nestopia_libretro
+snes;No-Intro/Nintendo - Super Nintendo Entertainment System;Nintendo - Super Nintendo Entertainment System;Nintendo SNES NoIntro;snes9x_libretro
+n64;No-Intro/Nintendo - Nintendo 64 (ByteSwapped);Nintendo - Nintendo 64;Nintendo 64 NoIntro;mupen64plus_next_libretro
+gc;TOSEC-ISO/Nintendo/GameCube/Games;Nintendo - GameCube;Gamecube ISO;dolphin_libretro;iso
+wii;Redump/Nintendo - Wii - NKit RVZ [zstd-19-128k];Nintendo - Wii;Nintendo Wii Redump;dolphin_libretro;rvz
+wiiu;Redump/Nintendo - Wii U - WUX;Nintendo - Wii U;<i>Nintendo Wii U Redump</i>;cemu -g;wux
+
+gb;No-Intro/Nintendo - Game Boy;Nintendo - Game Boy;<i>Game Boy</i> NoIntro;sameboy_libretro
+gbc;No-Intro/Nintendo - Game Boy Color;Nintendo - Game Boy Color;<i>Game Boy Color</i> NoIntro;sameboy_libretro
+gba;No-Intro/Nintendo - Game Boy Advance;Nintendo - Game Boy Advance;<i>Game Boy Advance</i> NoIntro;mgba_libretro
+nds;No-Intro/Nintendo - Nintendo DS (Decrypted);Nintendo - Nintendo DS;<i>Nintendo DS</i> NoIntro;melonds_libretro
+3ds;No-Intro/Nintendo - Nintendo 3DS (Decrypted);Nintendo - Nintendo 3DS;<i>Nintendo 3DS</i> NoIntro;citra_libretro;3ds
+
+mastersystem;No-Intro/Sega - Master System - Mark III;Sega - Master System - Mark III;Master System NoIntro;genesis_plus_gx_libretro
+megadrive;No-Intro/Sega - Mega Drive - Genesis;Sega - Mega Drive - Genesis;Mega Drive NoIntro;genesis_plus_gx_libretro
+pico;No-Intro/Sega - PICO;Sega - PICO;Sega PICO NoIntro;picodrive_libretro
+sega32x;No-Intro/Sega - 32X;Sega - 32X;Sega 32X NoIntro;picodrive_libretro
+segacd;TOSEC-ISO/Sega/Mega-CD & Sega CD/CD/Games/[ISO];Sega - Mega-CD - Sega CD;Sega CD ISO;picodrive_libretro;cue
+saturn;TOSEC-ISO/Sega/Saturn/Games/[ISO];Sega - Saturn;Sega Saturn ISO;yabasanshiro_libretro;cue
+dreamcast;TOSEC-ISO/Sega/Dreamcast/Games/PAL;Sega - Dreamcast;Sega Dreamcast PAL;flycast_libretro;gdi
+gamegear;No-Intro/Sega - Game Gear;Sega - Game Gear;<i>Game Gear</i> NoIntro;genesis_plus_gx_libretro
+
+psx;No-Intro/Non-Redump - Sony - PlayStation;Sony - PlayStation;PlayStation 1 Non-Redump;pcsx_rearmed_libretro;cue
+ps2;No-Intro/Non-Redump - Sony - PlayStation 2;Sony - PlayStation 2;PlayStation 2 Non-Redump;pcsx2;iso
+psp;TOSEC-ISO/Sony/PlayStation Portable/Games/[ISO];Sony - PlayStation Portable;<i>Sony PSP</i> TOSEC;ppsspp_libretro;iso
