@@ -1,6 +1,12 @@
 #!/bin/bash
+
+# Stop EmulationStation
 emulationstation stop; chvt 3; clear
+
+# Resize tmp folder
 mount -o remount,size=6000M /tmp
+
+# Install necessary programs
 ln -s /usr/bin/fusermount /usr/bin/fusermount3
 curl https://rclone.org/install.sh | bash > /dev/null 2>&1
 wget -O /userdata/system/rclone.conf https://raw.githubusercontent.com/WizzardSK/gameflix/main/rclone.conf > /dev/null 2>&1
@@ -9,18 +15,33 @@ if [ ! -f /userdata/system/mount-zip ];  then wget -O /userdata/system/mount-zip
 if [ ! -f /userdata/system/ratarmount ]; then wget -O /userdata/system/ratarmount https://github.com/mxmlnkn/ratarmount/releases/download/v0.15.2/ratarmount-0.15.2-x86_64.AppImage; chmod +x /userdata/system/ratarmount; fi
 if [ ! -f /bin/git ];  then wget -O /userdata/system/git  https://github.com/adriadam10/gameflix/raw/main/batocera/share/system/git; chmod +x /userdata/system/git; mv /userdata/system/git /bin; fi
 
+# Read platforms in roms variable
 IFS=$'\n' read -d '' -ra roms <<< "$(curl -s https://raw.githubusercontent.com/adriadam10/gameflix/main/platforms.txt)"
+
+# Create necessary folders
 mkdir -p /userdata/{rom,roms,thumb,thumbs,zip} /userdata/system/.cache/{httpdirfs,ratarmount,rclone}
+
+# Mount all myrient in rom folder
 rclone mount myrient: /userdata/rom --http-no-head --no-checksum --no-modtime --attr-timeout 1000h --dir-cache-time 1000h --poll-interval 1000h --allow-non-empty --daemon --no-check-certificate --config=/userdata/system/rclone.conf
+
+# idk
 IFS=";"
 > /userdata/system/logs/git.log
+
+# Declare seen variable
 declare -A seen
+
+# Create platform folder and gamelist
 for each in "${roms[@]}"; do 
   read -ra rom < <(printf '%s' "$each")
   > /userdata/roms/"${rom[0]}"/gamelist.xml;
 done
+
+# Big deal
 for each in "${roms[@]}"; do 
-  read -ra rom < <(printf '%s' "$each")
+  read -ra rom < <(printf '%s' "$each") # Read platform to rom variable
+
+  # Download thumbs
   if [ ! -f /userdata/thumb/"${rom[0]}".png ]; then wget -O /userdata/thumb/"${rom[0]}".png https://raw.githubusercontent.com/fabricecaruso/es-theme-carbon/master/art/consoles/"${rom[0]}".png; fi
   if [[ -z "${seen[${rom[0]}]}" ]]; then
     seen[${rom[0]}]=1
@@ -35,6 +56,8 @@ for each in "${roms[@]}"; do
       sleep 0.5
     fi
   fi  
+
+  # Mount platform in roms folder
   ( rom3=$(sed 's/<[^>]*>//g' <<< "${rom[3]}")
   echo "${rom3}"
   mkdir -p /userdata/roms/"${rom[0]}"/"${rom3}"
@@ -45,6 +68,8 @@ for each in "${roms[@]}"; do
       rclone mount "${rom[1]}" /userdata/roms/"${rom[0]}"/"${rom3}" --http-no-head --no-checksum --no-modtime --dir-cache-time 1000h --allow-non-empty --attr-timeout 1000h --poll-interval 1000h --daemon --config=/userdata/system/rclone.conf
     else mount -o bind /userdata/rom/"${rom[1]}" /userdata/roms/"${rom[0]}"/"${rom3}"; fi
   fi
+  
+  # Create gamelist
   if ! grep -Fxq "<gameList>" /userdata/roms/"${rom[0]}"/gamelist.xml > /dev/null 2>&1; then
     ls /userdata/roms/"${rom[0]}"/"${rom3}" | while read line; do
       line2=${line%.*}
@@ -56,12 +81,20 @@ for each in "${roms[@]}"; do
     echo "<folder><path>./${rom3}</path><name>${rom3}</name><image>~/../thumb/${rom[0]}.png</image></folder>" >> /userdata/roms/"${rom[0]}"/gamelist.xml
   fi ) &
 done
+
+# Wait downloads to finish
 wait
+
+# Check gamelist tags
 for each in "${roms[@]}"; do 
   read -ra rom < <(printf '%s' "$each")
   if ! grep -Fxq "<gameList>" /userdata/roms/"${rom[0]}"/gamelist.xml; then sed -i "1i <gameList>" /userdata/roms/"${rom[0]}"/gamelist.xml; fi
   if ! grep -Fxq "</gameList>" /userdata/roms/"${rom[0]}"/gamelist.xml; then sed -i "\$a </gameList>" /userdata/roms/"${rom[0]}"/gamelist.xml; fi
 done
+
+# Change emulationstations systems config
 cp /usr/share/emulationstation/es_systems.cfg /usr/share/emulationstation/es_systems.bak
 wget -O /usr/share/emulationstation/es_systems.cfg https://github.com/WizzardSK/gameflix/raw/main/batocera/share/system/es_systems.cfg > /dev/null 2>&1
+
+# Reload emulationstation
 chvt 2; wget http://127.0.0.1:1234/reloadgames > /dev/null 2>&1
