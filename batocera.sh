@@ -13,7 +13,7 @@ if [ ! -f /userdata/system/rclone.conf ];  then wget -O /userdata/system/rclone.
 if [ ! -f /userdata/system/httpdirfs ];  then wget -O /userdata/system/httpdirfs  https://github.com/WizzardSK/gameflix/raw/main/batocera/share/system/httpdirfs; chmod +x /userdata/system/httpdirfs; fi
 if [ ! -f /userdata/system/mount-zip ];  then wget -O /userdata/system/mount-zip  https://github.com/WizzardSK/gameflix/raw/main/batocera/share/system/mount-zip; chmod +x /userdata/system/mount-zip; fi
 if [ ! -f /userdata/system/ratarmount ]; then wget -O /userdata/system/ratarmount https://github.com/mxmlnkn/ratarmount/releases/download/v0.15.2/ratarmount-0.15.2-x86_64.AppImage; chmod +x /userdata/system/ratarmount; fi
-if ! command -v git &> /dev/null; then wget -O /etc/pacman.conf https://github.com/adriadam10/gameflix/raw/main/batocera/share/system/pacman.conf; pacman -Sy --noconfirm git; fi
+if ! command -v git &> /dev/null; then wget -O /etc/pacman.conf https://github.com/adriadam10/gameflix/raw/main/batocera/share/system/pacman.conf; pacman -Sy --noconfirm --skipinteg git; fi
 
 # Read platforms in roms variable
 IFS=$'\n' read -d '' -ra roms <<< "$(curl -s https://raw.githubusercontent.com/adriadam10/gameflix/main/platforms.txt)"
