@@ -8,7 +8,6 @@ if [ ! -f /userdata/system/httpdirfs ];  then wget -O /userdata/system/httpdirfs
 if [ ! -f /userdata/system/fuse-zip ];   then wget -O /userdata/system/fuse-zip   https://github.com/WizzardSK/gameflix/raw/main/batocera/share/system/fuse-zip;  chmod +x /userdata/system/fuse-zip; fi
 if [ ! -f /userdata/system/mount-zip ];  then wget -O /userdata/system/mount-zip  https://github.com/WizzardSK/gameflix/raw/main/batocera/share/system/mount-zip; chmod +x /userdata/system/mount-zip; fi
 if [ ! -f /userdata/system/ratarmount ]; then wget -O /userdata/system/ratarmount https://github.com/mxmlnkn/ratarmount/releases/download/v0.15.2/ratarmount-0.15.2-x86_64.AppImage; chmod +x /userdata/system/ratarmount; fi
-if [ ! -f /userdata/system/cli.tar.gz ]; then wget -O /userdata/system/cli.tar.gz https://batocera.pro/app/cli.tar.gz; tar -xf /userdata/system/cli.tar.gz -C /userdata/system/; fi
 if [ ! -f /bin/git ];  then wget -O /userdata/system/git  https://github.com/adriadam10/gameflix/raw/main/batocera/share/system/git; chmod +x /userdata/system/git; mv /userdata/system/git /bin; fi
 
 /userdata/system/cli/run
