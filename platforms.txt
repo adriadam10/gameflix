@@ -1,2 +1,1 @@
 nes;No-Intro/Nintendo - Nintendo Entertainment System (Headered);Nintendo - Nintendo Entertainment System;<p>Nintendo NES NoIntro;nestopia_libretro
-nes;TOSEC/Nintendo/Famicom & Entertainment System/Games/[NES]/Nintendo Famicom & Entertainment System - Games - [NES].zip;Nintendo - Nintendo Entertainment System;Nintendo NES TOSEC;nestopia_libretro
