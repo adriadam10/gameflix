@@ -7,7 +7,7 @@ emulationstation stop; chvt 3; clear
 mount -o remount,size=6000M /tmp
 
 # Install necessary programs
-ln -s /usr/bin/fusermount /usr/bin/fusermount3
+if [ ! "$(readlink /usr/bin/fusermount)" == "/usr/bin/fusermount3" ]; then ln -s /usr/bin/fusermount /usr/bin/fusermount3; fi
 if ! command -v rclone &> /dev/null; then curl https://rclone.org/install.sh | bash > /dev/null 2>&1; fi
 if [ ! -f /userdata/system/rclone.conf ];  then wget -O /userdata/system/rclone.conf https://raw.githubusercontent.com/WizzardSK/gameflix/main/rclone.conf > /dev/null 2>&1; fi
 if [ ! -f /userdata/system/httpdirfs ];  then wget -O /userdata/system/httpdirfs  https://github.com/WizzardSK/gameflix/raw/main/batocera/share/system/httpdirfs; chmod +x /userdata/system/httpdirfs; fi
