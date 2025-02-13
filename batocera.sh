@@ -13,7 +13,6 @@ if [ ! -f /userdata/system/rclone.conf ];  then wget -O /userdata/system/rclone.
 if [ ! -f /userdata/system/httpdirfs ];  then wget -O /userdata/system/httpdirfs  https://github.com/WizzardSK/gameflix/raw/main/batocera/share/system/httpdirfs; chmod +x /userdata/system/httpdirfs; fi
 if [ ! -f /userdata/system/mount-zip ];  then wget -O /userdata/system/mount-zip  https://github.com/WizzardSK/gameflix/raw/main/batocera/share/system/mount-zip; chmod +x /userdata/system/mount-zip; fi
 if [ ! -f /userdata/system/ratarmount ]; then wget -O /userdata/system/ratarmount https://github.com/mxmlnkn/ratarmount/releases/download/v0.15.2/ratarmount-0.15.2-x86_64.AppImage; chmod +x /userdata/system/ratarmount; fi
-if ! command -v git &> /dev/null; then wget -O /etc/pacman.conf https://github.com/adriadam10/gameflix/raw/main/batocera/share/system/pacman.conf; pacman -Sy --noconfirm git; fi
 
 # Read platforms in roms variable
 IFS=$'\n' read -d '' -ra roms <<< "$(curl -s https://raw.githubusercontent.com/adriadam10/gameflix/main/platforms.txt)"
@@ -47,12 +46,7 @@ for each in "${roms[@]}"; do
     rom2="${rom[2]// /_}"
     echo "${rom[2]} thumbs" | tee -a /userdata/system/logs/git.log
     if [ ! -d "/userdata/thumbs/${rom[2]}" ]; then
-      git clone --depth 1 "https://github.com/WizzardSK/${rom2}.git" /userdata/thumbs/"${rom[2]}" 2>&1 | tee -a /userdata/system/logs/git.log
-    else
-      git config --global --add safe.directory /userdata/thumbs/"${rom[2]}"
-      git -C /userdata/thumbs/"${rom[2]}" config pull.rebase false 2>&1 | tee -a /userdata/system/logs/git.log
-      git -C /userdata/thumbs/"${rom[2]}" pull 2>&1 | tee -a /userdata/system/logs/git.log
-      sleep 0.5
+       wget "https://github.com/WizzardSK/${rom2}/archive/refs/heads/main.zip" -O /tmp/"${rom2}".zip && unzip /tmp/"${rom2}".zip -d /userdata/thumbs/"${rom[2]}" && mv /userdata/thumbs/"${rom[2]}"/"${rom[2]}"-main/* /userdata/thumbs/"${rom[2]}" 2>&1 | tee -a /userdata/system/logs/git.log
     fi
   fi  
 
