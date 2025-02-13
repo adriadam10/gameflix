@@ -24,7 +24,6 @@ mkdir -p /userdata/{rom,roms,thumb,thumbs,zip} /userdata/system/.cache/{httpdirf
 rclone mount myrient: /userdata/rom --http-no-head --no-checksum --no-modtime --attr-timeout 1000h --dir-cache-time 1000h --poll-interval 1000h --allow-non-empty --daemon --no-check-certificate --config=/userdata/system/rclone.conf
 
 IFS=";" # Use ; as delimiter
-> /userdata/system/logs/git.log # Create git.log file
 
 # Declare seen variable
 declare -A seen
@@ -44,9 +43,8 @@ for each in "${roms[@]}"; do
   if [[ -z "${seen[${rom[0]}]}" ]]; then
     seen[${rom[0]}]=1
     rom2="${rom[2]// /_}"
-    echo "${rom[2]} thumbs" | tee -a /userdata/system/logs/git.log
     if [ ! -d "/userdata/thumbs/${rom[2]}" ]; then
-       wget "https://github.com/WizzardSK/${rom2}/archive/refs/heads/master.zip" -O /tmp/"${rom2}".zip && unzip -qq /tmp/"${rom2}".zip -d /userdata/thumbs/"${rom[2]}" && rm /tmp/"${rom2}".zip && mv /userdata/thumbs/"${rom[2]}"/"${rom[2]}"-master/* /userdata/thumbs/"${rom[2]}" 2>&1 | tee -a /userdata/system/logs/git.log
+       wget "https://github.com/WizzardSK/${rom2}/archive/refs/heads/master.zip" -O /tmp/"${rom2}".zip && unzip -qq /tmp/"${rom2}".zip -d /userdata/thumbs/"${rom[2]}" && rm /tmp/"${rom2}".zip && mv /userdata/thumbs/"${rom[2]}"/"${rom[2]}"-master/* /userdata/thumbs/"${rom[2]}"
     fi
   fi  
 
