@@ -4,7 +4,7 @@
 emulationstation stop; chvt 3; clear
 
 # Resize tmp folder
-mount -o remount,size=6000M /tmp
+mount -o remount,size=30000M /tmp
 
 # Install necessary programs
 if [ ! "$(readlink /usr/bin/fusermount)" == "/usr/bin/fusermount3" ]; then ln -s /usr/bin/fusermount /usr/bin/fusermount3; fi
