@@ -44,7 +44,7 @@ for each in "${roms[@]}"; do
     seen[${rom[0]}]=1
     rom2="${rom[2]// /_}"
     if [ ! -d "/userdata/thumbs/${rom[2]}" ]; then
-       wget "https://github.com/WizzardSK/${rom2}/archive/refs/heads/master.zip" -O /tmp/"${rom2}".zip && unzip -qq /tmp/"${rom2}".zip -d /userdata/thumbs/"${rom[2]}" && rm /tmp/"${rom2}".zip && mv "/userdata/thumbs/${rom[2]}/${rom2}-master/*/" /userdata/thumbs/"${rom[2]}"
+       wget "https://github.com/WizzardSK/${rom2}/archive/refs/heads/master.zip" -O /tmp/"${rom2}".zip && unzip -qq /tmp/"${rom2}".zip -d /userdata/thumbs/"${rom[2]}" && rm /tmp/"${rom2}".zip && mv "/userdata/thumbs/${rom[2]}/${rom2}-master/"*/ /userdata/thumbs/"${rom[2]}"
     fi
   fi  
 
