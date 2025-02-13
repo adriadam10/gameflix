@@ -46,7 +46,7 @@ for each in "${roms[@]}"; do
     rom2="${rom[2]// /_}"
     echo "${rom[2]} thumbs" | tee -a /userdata/system/logs/git.log
     if [ ! -d "/userdata/thumbs/${rom[2]}" ]; then
-       wget "https://github.com/WizzardSK/${rom2}/archive/refs/heads/main.zip" -O /tmp/"${rom2}".zip && unzip /tmp/"${rom2}".zip -d /userdata/thumbs/"${rom[2]}" && mv /userdata/thumbs/"${rom[2]}"/"${rom[2]}"-main/* /userdata/thumbs/"${rom[2]}" 2>&1 | tee -a /userdata/system/logs/git.log
+       wget "https://github.com/WizzardSK/${rom2}/archive/refs/heads/master.zip" -O /tmp/"${rom2}".zip && unzip /tmp/"${rom2}".zip -d /userdata/thumbs/"${rom[2]}" && mv /userdata/thumbs/"${rom[2]}"/"${rom[2]}"-main/* /userdata/thumbs/"${rom[2]}" 2>&1 | tee -a /userdata/system/logs/git.log
     fi
   fi  
 
