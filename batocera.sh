@@ -24,9 +24,8 @@ mkdir -p /userdata/{rom,roms,thumb,thumbs,zip} /userdata/system/.cache/{httpdirf
 # Mount all myrient in rom folder
 rclone mount myrient: /userdata/rom --http-no-head --no-checksum --no-modtime --attr-timeout 1000h --dir-cache-time 1000h --poll-interval 1000h --allow-non-empty --daemon --no-check-certificate --config=/userdata/system/rclone.conf
 
-# idk
-IFS=";"
-> /userdata/system/logs/git.log
+IFS=";" # Use ; as delimiter
+> /userdata/system/logs/git.log # Create git.log file
 
 # Declare seen variable
 declare -A seen
@@ -34,7 +33,7 @@ declare -A seen
 # Create platform folder and gamelist
 for each in "${roms[@]}"; do 
   read -ra rom < <(printf '%s' "$each")
-  > /userdata/roms/"${rom[0]}"/gamelist.xml;
+  > /userdata/roms/"${rom[0]}"/gamelist.xml; # Creates gamelist.xml file
 done
 
 # Big deal
