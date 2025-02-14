@@ -21,7 +21,11 @@ IFS=$'\n' read -d '' -ra roms <<< "$(curl -s https://raw.githubusercontent.com/a
 mkdir -p /userdata/{rom,roms,thumb,thumbs,zip} /userdata/system/.cache/{httpdirfs,ratarmount,rclone}
 
 # Mount all myrient in rom folder
-rclone mount myrient: /userdata/rom --http-no-head --no-checksum --no-modtime --attr-timeout 1000h --dir-cache-time 1000h --poll-interval 1000h --allow-non-empty --daemon --no-check-certificate --config=/userdata/system/rclone.conf
+rclone mount myrient: /userdata/rom --http-no-head --no-checksum --no-modtime --attr-timeout 1000h --dir-cache-time 1000h --poll-interval 1000h --allow-non-empty --daemon --no-check-certificate --config=/userdata/system/rclone.conf \
+  --vfs-cache-mode full \
+  --vfs-cache-max-age 365d \
+  --vfs-cache-max-size 350G \
+  --vfs-cache-poll-interval 30m
 
 IFS=";" # Use ; as delimiter
 
