@@ -50,11 +50,11 @@ for each in "${roms[@]}"; do
     if [ ! -d "/userdata/thumbs/${rom[2]}" ]; then
        wget "https://github.com/WizzardSK/${rom2}/archive/refs/heads/master.zip" -O /tmp/"${rom2}".zip && unzip -qq /tmp/"${rom2}".zip -d /userdata/thumbs/"${rom[2]}" && rm /tmp/"${rom2}".zip && mv "/userdata/thumbs/${rom[2]}/${rom2}-master/"*/ /userdata/thumbs/"${rom[2]}"
     fi
+    echo "${rom3} thumbs downloaded"
   fi  
 
   # Mount platform in roms folder
   ( rom3=$(sed 's/<[^>]*>//g' <<< "${rom[3]}")
-  echo "${rom3}"
   mkdir -p /userdata/roms/"${rom[0]}"/"${rom3}"
   if [[ ${rom[1]} =~ \.zip$ ]]; then
     perror "i dont want zips"
