@@ -75,8 +75,8 @@ for each in "${roms[@]}"; do
       fi
     done
     echo "<folder><path>./${rom3}</path><name>${rom3}</name><image>~/../thumb/${rom[0]}.png</image></folder>" >> /userdata/roms/"${rom[0]}"/gamelist.xml
-    echo "${rom[2]} gamelist created"
-  fi ) &
+  fi
+  echo "${rom[2]} gamelist created" ) &
 done
 
 # Wait mount and gamelist creation to finish
