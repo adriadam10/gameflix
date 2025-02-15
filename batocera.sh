@@ -38,7 +38,7 @@ for each in "${roms[@]}"; do
   > /userdata/roms/"${rom[0]}"/gamelist.xml; # Creates gamelist.xml file
 done
 
-# Big deal
+# Prepare platforms
 for each in "${roms[@]}"; do 
   read -ra rom < <(printf '%s' "$each") # Read platform to rom variable
 
@@ -79,7 +79,7 @@ for each in "${roms[@]}"; do
   fi ) &
 done
 
-# Wait downloads to finish
+# Wait mount and gamelist creation to finish
 wait
 
 # Check gamelist tags
