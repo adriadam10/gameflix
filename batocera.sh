@@ -57,10 +57,11 @@ for each in "${roms[@]}"; do
   ( rom3=$(sed 's/<[^>]*>//g' <<< "${rom[3]}")
   mkdir -p /userdata/roms/"${rom[0]}"/"${rom3}"
   if [[ ${rom[1]} =~ \.zip$ ]]; then
-    perror "i dont want zips"
+    perror "${rom[1]} is a zip! not allowed!"
   else
     mount -o bind /userdata/rom/"${rom[1]}" /userdata/roms/"${rom[0]}"/"${rom3}"
   fi
+  echo "${rom[2]} mounted"
   
   # Create gamelist if needed
   if ! grep -Fxq "<gameList>" /userdata/roms/"${rom[0]}"/gamelist.xml > /dev/null 2>&1; then
@@ -74,6 +75,7 @@ for each in "${roms[@]}"; do
       fi
     done
     echo "<folder><path>./${rom3}</path><name>${rom3}</name><image>~/../thumb/${rom[0]}.png</image></folder>" >> /userdata/roms/"${rom[0]}"/gamelist.xml
+    echo "${rom[2]} gamelist created"
   fi ) &
 done
 
