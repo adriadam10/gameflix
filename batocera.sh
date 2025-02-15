@@ -65,6 +65,7 @@ for each in "${roms[@]}"; do
   
   # Create gamelist if needed
   if ! head -n 1 /userdata/roms/"${rom[0]}"/gamelist.xml | grep -Fxq "<gameList>" > /dev/null 2>&1; then
+    echo "<gameList" > /userdata/roms/"${rom[0]}"/gamelist.xml
     ls /userdata/roms/"${rom[0]}"/"${rom3}" | while read line; do
       line2=${line%.*}
       hra="<game><path>./${rom3}/${line}</path><name>${line2}</name><image>~/../thumbs/${rom[2]}/Named_Snaps/${line2}.png</image><titleshot>~/../thumbs/${rom[2]}/Named_Titles/${line2}.png</titleshot><thumbnail>~/../thumbs/${rom[2]}/Named_Boxarts/${line2}.png</thumbnail><marquee>~/../thumbs/${rom[2]}/Named_Logos/${line2}.png</marquee>"
@@ -75,19 +76,13 @@ for each in "${roms[@]}"; do
       fi
     done
     echo "<folder><path>./${rom3}</path><name>${rom3}</name><image>~/../thumb/${rom[0]}.png</image></folder>" >> /userdata/roms/"${rom[0]}"/gamelist.xml
+    echo "</gameList" > /userdata/roms/"${rom[0]}"/gamelist.xml
   fi
   echo "${rom[2]} gamelist created" ) &
 done
 
 # Wait mount and gamelist creation to finish
 wait
-
-# Check gamelist tags
-for each in "${roms[@]}"; do 
-  read -ra rom < <(printf '%s' "$each")
-  if ! grep -Fxq "<gameList>" /userdata/roms/"${rom[0]}"/gamelist.xml; then sed -i "1i <gameList>" /userdata/roms/"${rom[0]}"/gamelist.xml; fi
-  if ! grep -Fxq "</gameList>" /userdata/roms/"${rom[0]}"/gamelist.xml; then sed -i "\$a </gameList>" /userdata/roms/"${rom[0]}"/gamelist.xml; fi
-done
 
 # Change emulationstations systems config
 cp /usr/share/emulationstation/es_systems.cfg /usr/share/emulationstation/es_systems.bak
