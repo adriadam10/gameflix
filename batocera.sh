@@ -64,7 +64,7 @@ for each in "${roms[@]}"; do
   echo "${rom[2]} mounted"
   
   # Create gamelist if needed
-  if ! grep -Fxq "<gameList>" /userdata/roms/"${rom[0]}"/gamelist.xml > /dev/null 2>&1; then
+  if ! head -n 1 /userdata/roms/"${rom[0]}"/gamelist.xml | grep -Fxq "<gameList>" > /dev/null 2>&1; then
     ls /userdata/roms/"${rom[0]}"/"${rom3}" | while read line; do
       line2=${line%.*}
       hra="<game><path>./${rom3}/${line}</path><name>${line2}</name><image>~/../thumbs/${rom[2]}/Named_Snaps/${line2}.png</image><titleshot>~/../thumbs/${rom[2]}/Named_Titles/${line2}.png</titleshot><thumbnail>~/../thumbs/${rom[2]}/Named_Boxarts/${line2}.png</thumbnail><marquee>~/../thumbs/${rom[2]}/Named_Logos/${line2}.png</marquee>"
