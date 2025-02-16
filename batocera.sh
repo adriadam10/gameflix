@@ -28,10 +28,10 @@ IFS=";" # Use ; as delimiter
 # Declare seen variable
 declare -A seen
 
-# Create platform folder and gamelist
+# Create gamelist.xml if needed
 for each in "${roms[@]}"; do 
   read -ra rom < <(printf '%s' "$each")
-  > /userdata/roms/"${rom[0]}"/gamelist.xml; # Creates gamelist.xml file
+  if [ ! -f /userdata/roms/"${rom[0]}"/gamelist.xml ]; then touch /userdata/roms/"${rom[0]}"/gamelist.xml; fi
 done
 
 # Prepare platforms
