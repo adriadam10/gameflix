@@ -34,12 +34,10 @@ for each in "${roms[@]}"; do
 
   # Download thumbs if needed
   if [ ! -f /userdata/thumb/"${rom[0]}".png ]; then wget -O /userdata/thumb/"${rom[0]}".png https://raw.githubusercontent.com/fabricecaruso/es-theme-carbon/master/art/consoles/"${rom[0]}".png; fi
-  if [[ -z "${seen[${rom[0]}]}" ]]; then
+  if [[ -z "${seen[${rom[0]}]}" && ! -d "/userdata/thumbs/${rom[2]}" ]]; then
     seen[${rom[0]}]=1
     rom2="${rom[2]// /_}"
-    if [ ! -d "/userdata/thumbs/${rom[2]}" ]; then
-       wget "https://github.com/WizzardSK/${rom2}/archive/refs/heads/master.zip" -O /tmp/"${rom2}".zip && unzip -qq /tmp/"${rom2}".zip -d /userdata/thumbs/"${rom[2]}" && rm /tmp/"${rom2}".zip && mv "/userdata/thumbs/${rom[2]}/${rom2}-master/"*/ /userdata/thumbs/"${rom[2]}"
-    fi
+    wget "https://github.com/WizzardSK/${rom2}/archive/refs/heads/master.zip" -O /tmp/"${rom2}".zip && unzip -qq /tmp/"${rom2}".zip -d /userdata/thumbs/"${rom[2]}" && rm /tmp/"${rom2}".zip && mv "/userdata/thumbs/${rom[2]}/${rom2}-master/"*/ /userdata/thumbs/"${rom[2]}"
   fi  
 
   # Mount platform in roms folder
