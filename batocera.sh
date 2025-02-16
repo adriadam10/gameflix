@@ -50,8 +50,7 @@ for each in "${roms[@]}"; do
   fi
   
   # Create gamelist if needed
-  if [ ! -f /userdata/roms/"${rom[0]}"/gamelist.xml ]; then touch /userdata/roms/"${rom[0]}"/gamelist.xml; fi
-  if ! head -n 1 /userdata/roms/"${rom[0]}"/gamelist.xml | grep -Fxq "<gameList>" > /dev/null 2>&1; then
+  if [ ! -f /userdata/roms/"${rom[0]}"/gamelist.xml ]; then 
     echo "<gameList>" > /userdata/roms/"${rom[0]}"/gamelist.xml
     ls /userdata/roms/"${rom[0]}"/"${rom3}" | while read line; do
       line2=${line%.*}
