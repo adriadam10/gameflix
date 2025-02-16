@@ -28,12 +28,6 @@ IFS=";" # Use ; as delimiter
 # Declare seen variable
 declare -A seen
 
-# Create gamelist.xml if needed
-for each in "${roms[@]}"; do 
-  read -ra rom < <(printf '%s' "$each")
-  if [ ! -f /userdata/roms/"${rom[0]}"/gamelist.xml ]; then touch /userdata/roms/"${rom[0]}"/gamelist.xml; fi
-done
-
 # Prepare platforms
 for each in "${roms[@]}"; do 
   read -ra rom < <(printf '%s' "$each") # Read platform to rom variable
@@ -58,6 +52,7 @@ for each in "${roms[@]}"; do
   fi
   
   # Create gamelist if needed
+  if [ ! -f /userdata/roms/"${rom[0]}"/gamelist.xml ]; then touch /userdata/roms/"${rom[0]}"/gamelist.xml; fi
   if ! head -n 1 /userdata/roms/"${rom[0]}"/gamelist.xml | grep -Fxq "<gameList>" > /dev/null 2>&1; then
     echo "<gameList>" > /userdata/roms/"${rom[0]}"/gamelist.xml
     ls /userdata/roms/"${rom[0]}"/"${rom3}" | while read line; do
