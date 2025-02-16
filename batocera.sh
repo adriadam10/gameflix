@@ -21,11 +21,7 @@ IFS=$'\n' read -d '' -ra roms <<< "$(curl -s https://raw.githubusercontent.com/a
 mkdir -p /userdata/{rom,roms,thumb,thumbs,zip} /userdata/system/.cache/{httpdirfs,ratarmount,rclone}
 
 # Mount all myrient in rom folder
-rclone mount myrient: /userdata/rom --http-no-head --no-checksum --no-modtime --attr-timeout 1000h --dir-cache-time 1000h --poll-interval 1000h --allow-non-empty --daemon --no-check-certificate --config=/userdata/system/rclone.conf \
-  --vfs-cache-mode full \
-  --vfs-cache-max-age 365d \
-  --vfs-cache-max-size 350G \
-  --vfs-cache-poll-interval 30m
+rclone mount myrient: /userdata/rom --http-no-head --no-checksum --no-modtime --attr-timeout 1000h --dir-cache-time 1000h --poll-interval 1000h --allow-non-empty --daemon --no-check-certificate --config=/userdata/system/rclone.conf
 
 IFS=";" # Use ; as delimiter
 
@@ -50,7 +46,6 @@ for each in "${roms[@]}"; do
     if [ ! -d "/userdata/thumbs/${rom[2]}" ]; then
        wget "https://github.com/WizzardSK/${rom2}/archive/refs/heads/master.zip" -O /tmp/"${rom2}".zip && unzip -qq /tmp/"${rom2}".zip -d /userdata/thumbs/"${rom[2]}" && rm /tmp/"${rom2}".zip && mv "/userdata/thumbs/${rom[2]}/${rom2}-master/"*/ /userdata/thumbs/"${rom[2]}"
     fi
-    echo "${rom[2]} thumbs downloaded"
   fi  
 
   # Mount platform in roms folder
@@ -61,7 +56,6 @@ for each in "${roms[@]}"; do
   else
     mount -o bind /userdata/rom/"${rom[1]}" /userdata/roms/"${rom[0]}"/"${rom3}"
   fi
-  echo "${rom[2]} mounted"
   
   # Create gamelist if needed
   if ! head -n 1 /userdata/roms/"${rom[0]}"/gamelist.xml | grep -Fxq "<gameList>" > /dev/null 2>&1; then
@@ -77,8 +71,8 @@ for each in "${roms[@]}"; do
     done
     echo "<folder><path>./${rom3}</path><name>${rom3}</name><image>~/../thumb/${rom[0]}.png</image></folder>" >> /userdata/roms/"${rom[0]}"/gamelist.xml
     echo "</gameList>" >> /userdata/roms/"${rom[0]}"/gamelist.xml
-  fi
-  echo "${rom[2]} gamelist created" ) &
+  fi 
+  echo "${rom[2]} loaded") &
 done
 
 # Wait mount and gamelist creation to finish
