@@ -19,7 +19,7 @@ if [ ! -d /userdata/system/nginx ]; then
     wget -O /userdata/system/nginx/conf/nginx.conf https://github.com/adriadam10/gameflix/raw/main/batocera/share/system/nginx.conf
     mkdir -p /userdata/system/nginx/logs
     touch /userdata/system/nginx/logs/error.log /userdata/system/nginx/logs/access.log
-    mkdir -p /userdata/system/cache
+    mkdir -p /userdata/system/cache/nginx
 fi
 
 # Start nginx
