@@ -24,7 +24,8 @@ fi
 
 # Start nginx
 echo "127.0.0.1 local.myrient.erista.me" >> /etc/hosts
-/userdata/system/nginx/sbin/nginx
+cd /userdata/system || exit
+nginx/sbin/nginx
 
 # Read platforms in roms variable
 IFS=$'\n' read -d '' -ra roms <<< "$(curl -s https://raw.githubusercontent.com/adriadam10/gameflix/main/platforms.txt)"
