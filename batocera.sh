@@ -17,10 +17,10 @@ if [ ! -d /userdata/system/nginx ]; then
     wget -O /userdata/system/nginx.zip https://github.com/adriadam10/gameflix/raw/main/batocera/share/system/nginx.zip
     unzip /userdata/system/nginx.zip -d /userdata/system
     wget -O /userdata/system/nginx/conf/nginx.conf https://github.com/adriadam10/gameflix/raw/main/batocera/share/system/nginx.conf
-    mkdir -p /var/log/nginx
-    mkdir -p /var/cache/nginx
-    touch /var/log/nginx/access.log /var/log/nginx/error.log
     echo "127.0.0.1 local.myrient.erista.me" >> /etc/hosts
+    mkdir -p /userdata/system/nginx/logs
+    touch /userdata/system/nginx/logs/error.log /userdata/system/nginx/logs/access.log
+    mkdir -p /userdata/system/cache
 fi
 
 # Start nginx
