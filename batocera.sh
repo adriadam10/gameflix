@@ -17,13 +17,13 @@ if [ ! -d /userdata/system/nginx ]; then
     wget -O /userdata/system/nginx.zip https://github.com/adriadam10/gameflix/raw/main/batocera/share/system/nginx.zip
     unzip /userdata/system/nginx.zip -d /userdata/system
     wget -O /userdata/system/nginx/conf/nginx.conf https://github.com/adriadam10/gameflix/raw/main/batocera/share/system/nginx.conf
-    echo "127.0.0.1 local.myrient.erista.me" >> /etc/hosts
     mkdir -p /userdata/system/nginx/logs
     touch /userdata/system/nginx/logs/error.log /userdata/system/nginx/logs/access.log
     mkdir -p /userdata/system/cache
 fi
 
 # Start nginx
+echo "127.0.0.1 local.myrient.erista.me" >> /etc/hosts
 nginx/sbin/nginx
 
 # Read platforms in roms variable
