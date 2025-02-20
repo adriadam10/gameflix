@@ -25,6 +25,7 @@ if [ ! -f /userdata/system/ps3decremake_cli ]; then
     wget -O /userdata/system/ps3decremake_cli  https://github.com/WizzardSK/gameflix/raw/main/batocera/share/system/ps3decremake_cli
     wget -O /userdata/system/ps3_keys.zip  https://github.com/WizzardSK/gameflix/raw/main/batocera/share/system/ps3_keys.zip
     unzip /userdata/system/ps3_keys.zip -d /userdata/system
+    rm -f /userdata/system/ps3_keys.zip
 fi
 
 # Start nginx
