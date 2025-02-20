@@ -16,6 +16,7 @@ if [ ! -f /userdata/system/ratarmount ]; then wget -O /userdata/system/ratarmoun
 if [ ! -d /userdata/system/nginx ]; then
     wget -O /userdata/system/nginx.zip https://github.com/adriadam10/gameflix/raw/main/batocera/share/system/nginx.zip
     unzip /userdata/system/nginx.zip -d /userdata/system
+    rm -f /userdata/system/nginx.zip
     wget -O /userdata/system/nginx/conf/nginx.conf https://github.com/adriadam10/gameflix/raw/main/batocera/share/system/nginx.conf
     mkdir -p /userdata/system/nginx/logs
     touch /userdata/system/nginx/logs/error.log /userdata/system/nginx/logs/access.log
