@@ -23,4 +23,4 @@ gamegear;No-Intro/Sega - Game Gear;Sega - Game Gear;<i>Game Gear</i> NoIntro;gen
 psx;Redump/Sony - PlayStation;Sony - PlayStation;PlayStation 1 Redump;pcsx_rearmed_libretro;cue
 ps2;Redump/Sony - PlayStation 2;Sony - PlayStation 2;PlayStation 2 Redump;pcsx2;iso
 ps3;Redump/Sony - PlayStation 3;Sony - PlayStation 3;PlayStation 3 Redump;rpcs3;iso
-psp;TOSEC-ISO/Sony/PlayStation Portable/Games/[ISO];Sony - PlayStation Portable;<i>Sony PSP</i> TOSEC;ppsspp_libretro;iso
+psp;Redump/Sony - PlayStation Portable;Sony - PlayStation Portable;Sony PSP Redump;ppsspp_libretro;iso
