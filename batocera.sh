@@ -36,7 +36,8 @@ cd /userdata/system || exit
 nginx/sbin/nginx
 
 # Read platforms in roms variable
-IFS=$'\n' read -d '' -ra roms <<< "$(curl -s https://raw.githubusercontent.com/adriadam10/gameflix/main/platforms.txt)"
+IFS=$'\n' 
+read -d '' -ra roms <<< "$(curl -s https://raw.githubusercontent.com/adriadam10/gameflix/main/platforms.txt)"
 
 # Create necessary folders
 mkdir -p /userdata/{rom,roms,thumb,thumbs,zip} /userdata/system/.cache/{httpdirfs,ratarmount,rclone}
