@@ -9,9 +9,9 @@ mount -o remount,size=30000M /tmp
 # Install necessary programs
 if [ "$(readlink /usr/bin/fusermount3)" != "/usr/bin/fusermount" ]; then ln -s /usr/bin/fusermount /usr/bin/fusermount3; fi
 if ! command -v rclone &> /dev/null; then curl https://rclone.org/install.sh | bash > /dev/null 2>&1; fi
-if [ ! -f /userdata/system/rclone.conf ];  then wget -O /userdata/system/rclone.conf https://raw.githubusercontent.com/WizzardSK/gameflix/main/rclone.conf > /dev/null 2>&1; fi
-if [ ! -f /userdata/system/httpdirfs ];  then wget -O /userdata/system/httpdirfs  https://github.com/WizzardSK/gameflix/raw/main/batocera/share/system/httpdirfs; chmod +x /userdata/system/httpdirfs; fi
-if [ ! -f /userdata/system/mount-zip ];  then wget -O /userdata/system/mount-zip  https://github.com/WizzardSK/gameflix/raw/main/batocera/share/system/mount-zip; chmod +x /userdata/system/mount-zip; fi
+if [ ! -f /userdata/system/rclone.conf ];  then wget -O /userdata/system/rclone.conf https://raw.githubusercontent.com/adriadam10/gameflix/main/rclone.conf > /dev/null 2>&1; fi
+if [ ! -f /userdata/system/httpdirfs ];  then wget -O /userdata/system/httpdirfs  https://github.com/adriadam10/gameflix/raw/main/batocera/share/system/httpdirfs; chmod +x /userdata/system/httpdirfs; fi
+if [ ! -f /userdata/system/mount-zip ];  then wget -O /userdata/system/mount-zip  https://github.com/adriadam10/gameflix/raw/main/batocera/share/system/mount-zip; chmod +x /userdata/system/mount-zip; fi
 if [ ! -f /userdata/system/ratarmount ]; then wget -O /userdata/system/ratarmount https://github.com/mxmlnkn/ratarmount/releases/download/v0.15.2/ratarmount-0.15.2-x86_64.AppImage; chmod +x /userdata/system/ratarmount; fi
 if [ ! -d /userdata/system/nginx ]; then
     wget -O /userdata/system/nginx.zip https://github.com/adriadam10/gameflix/raw/main/batocera/share/system/nginx.zip
