@@ -10,7 +10,7 @@
     - `IconURL`: Link to a PNG icon.
     - `DisplayName`: Descriptive name for the UI.
 3. **Special Handling**:
-    - If the platform requires decryption (like PS3), update `batocera.sh` or `webflix.sh` with the necessary logic.
+    - If the platform requires decryption (like PS3), update the relevant modular script (e.g., `batocera/scripts/platforms.sh`) or `webflix.sh` with the necessary logic.
     - If the platform uses large files (ISOs), ensure the Nginx cache and `ratarmount` are correctly configured.
 
 ## Modifying Existing Platforms
