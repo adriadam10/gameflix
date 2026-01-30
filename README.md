@@ -1,45 +1,62 @@
-# gameflix
+# Gameflix
+
 ![obrázok](https://github.com/user-attachments/assets/c90a7c26-1828-481c-a236-f56d0b19f936)
 
-Demo: https://wizzardsk.github.io/
+This project allows running retro games directly from public online sources (like Myrient and The Eye) on Linux machines, specifically optimized for Batocera and Recalbox.
 
-Project for running retro games directly from public online sources on Linux machines.
+This repository is a fork with significant improvements in performance, platform support, and usability.
 
-I made this project for my own personal needs, to have the same setup on all my machines.
+## 🚀 Key Improvements in this Fork
 
-All games are stored on public services Myrient and The Eye. Thumbnails are used from https://thumbnails.libretro.com/ configured to use with some frontend. 
+### 🎮 PS3 Support
 
-Why is it better than to have all games on local storage? You may have the access to all your games without the need to have a huge storage. Some PSX, PS2, GameCube or Dreamcast games may be very large and using this script you may run them on a Chromebook with small storage (if it may run those emulators). The disadvantage is that you need fast internet connection and even with that the loading of bigger games may be quite slow.
+Added experimental support for PS3 games:
 
-If you need ARM64 libretro cores, try here: https://github.com/christianhaitian/retroarch-cores
+- **Decryption**: Integrated `ps3dec` to handle encrypted ISOs automatically.
+- **Mounting**: System to mount PS3 ISOs into local folders for easy emulator access.
 
-For BIOS, check this page: https://github.com/PIBSAS
+### ⚡ Optimization and Performance
 
-## Web version
-`rclone` binary is needed on host system (version 1.60+). Also it is needed to have rclone configured for all the remotes. Attached [rclone.conf](/.config/rclone/rclone.conf) should be placed in `~/.config/rclone/` If your version is not up to date, grab it from here: https://rclone.org/downloads/
+- **Nginx Cache**: Implemented a proxy cache using Nginx to speed up ROM downloads (especially ZIP files) and reduce latency.
+- **Rclone Cache**: Fine-tuned rclone mount parameters for faster remote file access.
 
-Run [mount.sh](mount.sh) or `webflix.sh` or `bash <(curl -Ls https://raw.githubusercontent.com/WizzardSK/gameflix/main/webflix.sh)` to mount the library.
+### 🛠️ Platform and Origin Updates
 
-The library is mounted into `roms` folder in your home directory. If roms directories do not exist, they are automatically created.
+- **Updated Sources**: Switched to more stable origins for platforms like PSP, GameCube, and PSX.
+- **Clean UI**: Hidden demos and betas from the game list for a better user experience.
 
-Then use the library with any emulation system like Retroarch. It is up to you how you configure the emulators. I am using my web version on Linux on my arm Chromebook.
+### 📂 Better Gamelist Management
 
-Now you may run the roms directly without copying them to local storage, just like Netflix. 
+- **Automatic Generation**: Improved logic for creating `gamelist.xml` with correct paths and metadata.
+- **Thumbnail Handling**: Optimized download and display of libretro thumbnails.
 
-You also need [ratarmount](https://github.com/mxmlnkn/ratarmount) program to use TOSEC libraries. They are stored in zipped files on remote place so the program needs to mount them like folders. It is also used to run zipped ISO files for PSP, PS2, PC Engine CD and other.
+### 📋 Enhanced Debugging
 
-[mount.sh](mount.sh) mounts the library. 
+- **Detailed Execution Logs**: Added logging for startup scripts in Batocera and Recalbox to simplify troubleshooting.
 
-Then run [gen.sh](gen.sh) to generate or update games collection. The script generates a `gameflix` folder in your home directory which is automatically opened in default browser. Firefox is recommended. The game is launched after clicking on the thumbnail. It is necessary to associate the zip files and other rom files with `retroarch.sh` script, which is also downloaded into home directory. It automatically launches RetroArch with correct core or standalone emulator. You may edit that file according to your needs. Web page contains links to all the platforms supported with all the games available. It is not necessary to run it all the time, because it takes time, about 30 minutes on my Chromebook.
+---
 
-## Usage - Batocera Linux
-For Batocera, you need to copy [custom.sh](batocera/share/system/custom.sh) file to your system folder in shared drive. It will launch automatically at system boot. It should also install rclone config file in system folder. Thumbnail folders are mounting too.
+## 🔧 Installation and Usage
 
-AMD64 version also supports zipped libraries for Atari 800, Amstrad CPC, ZX Spectrum and a lot of others.
+### Requirements
 
-## Usage - Recalbox
-For Recalbox, you need to copy [custom.sh](recalbox/share/system/custom.sh) file to your system folder in shared drive. It will launch automatically at system boot. It should also install rclone config file in system folder. Thumbnail folders are mounting too.
+- `rclone` binary (version 1.60+) configured with provided sources.
+- `ratarmount` or `fuse-zip` for handling compressed libraries.
 
-Raspberry Pi 4 version also supports zipped libraries for Atari 800, Amstrad CPC and ZX Spectrum.
+### Quick Start (Web Version)
 
-Recalbox version is no longer maintained cause I do not use it anymore and don't have time to maintain it now.
+Run the following script to mount the library with cache support:
+
+```bash
+bash webflix.sh
+```
+
+### Batocera / Recalbox Usage
+
+Copy the `custom.sh` from the respective folders (`batocera/` or `recalbox/`) to your shared drive system folder.
+In Batocera, ensure you use the provided `nginx.conf` for cache optimizations.
+
+## 🤝 Credits
+
+Based on the original project by [WizzardSK](https://github.com/WizzardSK/gameflix).
+Enhancements and maintenance of this fork by [adriadam10](https://github.com/adriadam10).
