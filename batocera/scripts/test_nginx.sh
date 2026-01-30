@@ -20,7 +20,7 @@ log "Host resolution configured correctly."
 
 # define test variables
 # Using a small Game Boy game for testing to minimize bandwidth/time
-TEST_URL="http://local.myrient.erista.me/files/No-Intro/Nintendo%20-%20Game%20Boy/Tetris%20(World)%20(Rev%20A).zip"
+TEST_URL="http://local.myrient.erista.me/files/No-Intro/Nintendo%20-%20Game%20Boy/Tetris%20%28World%29%20%28Rev%201%29.zip"
 TEST_FILE="/tmp/nginx_test_game.zip"
 
 cleanup() {
