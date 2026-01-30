@@ -32,6 +32,7 @@ fi
 SYSTEMS_CFG="/usr/share/emulationstation/es_systems.cfg"
 if [[ -f "$SYSTEMS_CFG" ]]; then
     [[ ! -f "${SYSTEMS_CFG}.bak" ]] && cp "$SYSTEMS_CFG" "${SYSTEMS_CFG}.bak"
+    rm -f "$SYSTEMS_CFG"
     download_file "https://github.com/adriadam10/gameflix/raw/main/batocera/share/system/es_systems.cfg" "$SYSTEMS_CFG"
 fi
 
