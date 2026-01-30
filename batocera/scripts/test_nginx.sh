@@ -45,7 +45,7 @@ END=$(date +%s%3N)
 DURATION_1=$((END - START))
 
 # Check Cache Status
-CACHE_STATUS=$(grep -i "X-Cache-Status" "$HEADERS_FILE" | cut -d':' -f2 | tr -d ' \r')
+CACHE_STATUS=$(grep -i "X-Cache-Status" "$HEADERS_FILE" | tail -n 1 | cut -d':' -f2 | tr -d ' \r')
 log "Download 1 complete in ${DURATION_1}ms. Cache Status: ${CACHE_STATUS:-UNKNOWN}"
 
 # 4. Second Download (Cache Hit Verification)
@@ -59,7 +59,7 @@ fi
 END=$(date +%s%3N)
 DURATION_2=$((END - START))
 
-CACHE_STATUS_2=$(grep -i "X-Cache-Status" "$HEADERS_FILE_2" | cut -d':' -f2 | tr -d ' \r')
+CACHE_STATUS_2=$(grep -i "X-Cache-Status" "$HEADERS_FILE_2" | tail -n 1 | cut -d':' -f2 | tr -d ' \r')
 log "Download 2 complete in ${DURATION_2}ms. Cache Status: ${CACHE_STATUS_2:-UNKNOWN}"
 
 # 5. Analysis
