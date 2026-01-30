@@ -47,7 +47,7 @@ process_platform() {
     fi
 
     # Bind Mount
-    if ! mountpoint -q "$rom_subdir"; then
+    if ! is_mountpoint "$rom_subdir"; then
         if [[ ! "$remote_path" =~ \.zip$ ]]; then
             mount -o bind "${ROM_DIR}/${remote_path}" "$rom_subdir" 2>/dev/null
         fi

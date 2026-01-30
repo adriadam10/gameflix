@@ -30,3 +30,28 @@ download_file() {
     fi
     return 0
 }
+
+is_mountpoint() {
+    local dir="$1"
+    # Check if directory exists
+    [[ ! -d "$dir" ]] && return 1
+    
+    # Use mountpoint command if available (most reliable)
+    if command -v mountpoint >/dev/null 2>&1; then
+        mountpoint -q "$dir"
+        return $?
+    fi
+    
+    # Fallback 1: Check /proc/mounts (Linux standard)
+    if grep -q " $(readlink -f "$dir") " /proc/mounts 2>/dev/null; then
+        return 0
+    fi
+    
+    # Fallback 2: Check standard mount command output
+    # This is less reliable due to formatting but works on some minimal systems
+    if mount | grep -q " on $(readlink -f "$dir") "; then
+        return 0
+    fi
+    
+    return 1
+}
