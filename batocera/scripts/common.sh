@@ -9,9 +9,8 @@ ROMS_BASE_DIR="${USERDATA}/roms"
 THUMB_DIR="${USERDATA}/thumb"
 THUMBS_BASE_DIR="${USERDATA}/thumbs"
 CACHE_DIR="${SYSTEM_DIR}/.cache"
-NGINX_DIR="${SYSTEM_DIR}/nginx"
+WEBCACHE_CONF="${SYSTEM_DIR}/webcache.toml"
 RCLONE_CONF="${SYSTEM_DIR}/rclone.conf"
-HOSTS_ENTRY="127.0.0.1 local.myrient.erista.me"
 PLATFORMS_URL="https://raw.githubusercontent.com/adriadam10/gameflix/main/platforms.txt"
 
 # --- Shared Functions ---
