@@ -4,28 +4,12 @@ source "$(dirname "$0")/common.sh"
 
 log "Configuring services..."
 
-# Hosts
-if ! grep -q "$HOSTS_ENTRY" /etc/hosts; then
-    log "Updating /etc/hosts..."
-    echo "$HOSTS_ENTRY" >> /etc/hosts
-fi
-
-# Nginx
-if [[ ! -d "$NGINX_DIR" ]]; then
-    log "Setting up Nginx cache..."
-    tmp_zip="/tmp/nginx.zip"
-    if download_file "https://github.com/adriadam10/gameflix/raw/main/batocera/share/system/nginx.zip" "$tmp_zip"; then
-        unzip -q -o "$tmp_zip" -d "$SYSTEM_DIR" && rm -f "$tmp_zip"
-        download_file "https://github.com/adriadam10/gameflix/raw/main/batocera/share/system/nginx.conf" "${NGINX_DIR}/conf/nginx.conf"
-        mkdir -p "${NGINX_DIR}/logs" "${USERDATA}/cache/nginx"
-        touch "${NGINX_DIR}/logs/error.log" "${NGINX_DIR}/logs/access.log"
-    fi
-fi
-
-# Start Nginx
-if [[ -x "${NGINX_DIR}/sbin/nginx" ]]; then
-    log "Starting Nginx..."
-    "${NGINX_DIR}/sbin/nginx" -p "$NGINX_DIR" 2>/dev/null || log "Nginx already running"
+# WebCache Config
+if [[ ! -f "$WEBCACHE_CONF" ]]; then
+    log "Downloading WebCache configuration..."
+    download_file "https://raw.githubusercontent.com/adriadam10/webcache/master/config.toml" "$WEBCACHE_CONF"
+    # Adjust cache directory for Batocera
+    sed -i "s|cache_dir = \"/var/cache/webcache\"|cache_dir = \"${CACHE_DIR}/webcache\"|g" "$WEBCACHE_CONF"
 fi
 
 # Systems config
