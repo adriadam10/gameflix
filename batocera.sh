@@ -18,7 +18,7 @@ download_script() {
 }
 
 log "Fetching modular components..."
-for script in common.sh tools.sh services.sh mount.sh platforms.sh test_nginx.sh; do
+for script in common.sh tools.sh services.sh mount.sh platforms.sh; do
     download_script "$script" &
 done
 wait
@@ -41,9 +41,9 @@ S_PID=$!
 wait $T_PID $S_PID
 log "Stage 1 (Tools & Services) complete."
 
-# Stage 1.5: Verify Nginx (Requires services.sh)
-log "Verifying Nginx configuration..."
-"${SCRIPTS_DIR}/test_nginx.sh" || log "WARNING: Nginx verification failed, but continuing..."
+# Stage 1.5: Verify Nginx (REMOVED)
+# log "Verifying Nginx configuration..."
+# "${SCRIPTS_DIR}/test_nginx.sh" || log "WARNING: Nginx verification failed, but continuing..."
 
 # Stage 2: Mounting (Requires rclone from tools.sh)
 "${SCRIPTS_DIR}/mount.sh"
