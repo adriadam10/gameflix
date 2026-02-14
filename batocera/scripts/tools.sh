@@ -13,22 +13,32 @@ fi
 mkdir -p "$LIB_DIR"
 if [[ ! -f "${LIB_DIR}/libfuse3.so.3" ]]; then
     log "Installing libfuse3..."
-    # We use a pre-built binary from Conda Forge (x86_64)
-    LIBFUSE_URL="https://conda.anaconda.org/conda-forge/linux-64/libfuse-3.10.5-h27cfd23_0.tar.bz2"
-    tmp_lib="/tmp/libfuse.tar.bz2"
+    # We use a pre-built binary from Arch Linux (x86_64)
+    # URL is for a specific version that is known to work and be extractable
+    LIBFUSE_URL="https://archive.archlinux.org/packages/f/fuse3/fuse3-3.10.5-1-x86_64.pkg.tar.zst"
+    tmp_pkg="/tmp/fuse3.pkg.tar.zst"
+    tmp_tar="/tmp/fuse3.pkg.tar"
     
-    if download_file "$LIBFUSE_URL" "$tmp_lib"; then
-        # Check tar version/capabilities, assume basic tar works
-        # Extract specific file. structure in tar is lib/libfuse3.so.3.10.5
-        tar -xjf "$tmp_lib" -C "/tmp" "lib/libfuse3.so.3.10.5"
-        
-        if [[ -f "/tmp/lib/libfuse3.so.3.10.5" ]]; then
-            mv "/tmp/lib/libfuse3.so.3.10.5" "${LIB_DIR}/libfuse3.so.3"
-            rm -rf "/tmp/lib"
+    if download_file "$LIBFUSE_URL" "$tmp_pkg"; then
+        # Decompress zstd
+        if command -v zstd >/dev/null; then
+            zstd -d "$tmp_pkg" -o "$tmp_tar"
+            # Extract tar - try to extract only needed files first
+            tar -xf "$tmp_tar" -C "/tmp" "usr/lib/libfuse3.so.3" "usr/lib/libfuse3.so.3.10.5" 2>/dev/null || \
+            tar -xf "$tmp_tar" -C "/tmp"  # Fallback to full extract
+            
+            # Move libraries
+            if [[ -f "/tmp/usr/lib/libfuse3.so.3.10.5" ]]; then
+                mv /tmp/usr/lib/libfuse3* "${LIB_DIR}/"
+                rm -rf "/tmp/usr"
+            else
+                log "Failed to extract libfuse3 libraries"
+            fi
+            
+            rm -f "$tmp_pkg" "$tmp_tar"
         else
-            log "Failed to extract libfuse3.so.3.10.5"
+            log "zstd not found, cannot install libfuse3"
         fi
-        rm -f "$tmp_lib"
     fi
 fi
 

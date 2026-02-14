@@ -12,7 +12,7 @@ if ! is_mountpoint "$ROM_DIR"; then
     chmod +x "${SYSTEM_DIR}/webcache"
     
     # Run webcache
-    "${SYSTEM_DIR}/webcache" --config "$WEBCACHE_CONF" --mountpoint "$ROM_DIR" --foreground > /dev/null 2>&1 &
+    nohup "${SYSTEM_DIR}/webcache" --config "$WEBCACHE_CONF" --mountpoint "$ROM_DIR" --foreground true > "${SYSTEM_DIR}/webcache.log" 2>&1 &
     
     # Wait a bit for mount to happen
     sleep 2
