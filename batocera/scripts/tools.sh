@@ -9,6 +9,29 @@ if [[ ! -L /usr/bin/fusermount3 ]] && [[ ! -e /usr/bin/fusermount3 ]]; then
     ln -sf /usr/bin/fusermount /usr/bin/fusermount3
 fi
 
+# Libfuse3 (Required for WebCache)
+mkdir -p "$LIB_DIR"
+if [[ ! -f "${LIB_DIR}/libfuse3.so.3" ]]; then
+    log "Installing libfuse3..."
+    # We use a pre-built binary from Conda Forge (x86_64)
+    LIBFUSE_URL="https://conda.anaconda.org/conda-forge/linux-64/libfuse-3.10.5-h27cfd23_0.tar.bz2"
+    tmp_lib="/tmp/libfuse.tar.bz2"
+    
+    if download_file "$LIBFUSE_URL" "$tmp_lib"; then
+        # Check tar version/capabilities, assume basic tar works
+        # Extract specific file. structure in tar is lib/libfuse3.so.3.10.5
+        tar -xjf "$tmp_lib" -C "/tmp" "lib/libfuse3.so.3.10.5"
+        
+        if [[ -f "/tmp/lib/libfuse3.so.3.10.5" ]]; then
+            mv "/tmp/lib/libfuse3.so.3.10.5" "${LIB_DIR}/libfuse3.so.3"
+            rm -rf "/tmp/lib"
+        else
+            log "Failed to extract libfuse3.so.3.10.5"
+        fi
+        rm -f "$tmp_lib"
+    fi
+fi
+
 # WebCache
 if [[ ! -f "${SYSTEM_DIR}/webcache" ]]; then
     log "Installing webcache..."
