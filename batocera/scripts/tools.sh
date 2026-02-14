@@ -9,10 +9,25 @@ if [[ ! -L /usr/bin/fusermount3 ]] && [[ ! -e /usr/bin/fusermount3 ]]; then
     ln -sf /usr/bin/fusermount /usr/bin/fusermount3
 fi
 
-# Rclone
-if ! command -v rclone &> /dev/null; then
-    log "Installing rclone..."
-    curl -s https://rclone.org/install.sh | bash > /dev/null 2>&1
+# WebCache
+if [[ ! -f "${SYSTEM_DIR}/webcache" ]]; then
+    log "Installing webcache..."
+    # Determine arch
+    case "$(uname -m)" in
+        x86_64) ARCH="x86_64-unknown-linux-gnu" ;;
+        aarch64) ARCH="aarch64-unknown-linux-gnu" ;;
+        armv7l) ARCH="armv7-unknown-linux-gnueabihf" ;;
+        *) log "Unsupported architecture: $(uname -m)"; exit 1 ;;
+    esac
+    
+    WEBCACHE_URL="https://github.com/adriadam10/webcache/releases/latest/download/webcache-${ARCH}.tar.gz"
+    tmp_tar="/tmp/webcache.tar.gz"
+    
+    if download_file "$WEBCACHE_URL" "$tmp_tar"; then
+        tar -xzf "$tmp_tar" -C "${SYSTEM_DIR}" webcache
+        chmod +x "${SYSTEM_DIR}/webcache"
+        rm -f "$tmp_tar"
+    fi
 fi
 
 # Binaries from URL
