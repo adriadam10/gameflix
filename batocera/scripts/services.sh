@@ -10,6 +10,8 @@ if [[ ! -f "$WEBCACHE_CONF" ]]; then
     download_file "https://raw.githubusercontent.com/adriadam10/webcache/master/config.toml" "$WEBCACHE_CONF"
     # Adjust cache directory for Batocera
     sed -i "s|cache_dir = \"/var/cache/webcache\"|cache_dir = \"${CACHE_DIR}/webcache\"|g" "$WEBCACHE_CONF"
+    # Set cache size to 250GB (268435456000 bytes)
+    sed -i "s|max_size_bytes = 10737418240|max_size_bytes = 268435456000|g" "$WEBCACHE_CONF"
 fi
 
 # Systems config
